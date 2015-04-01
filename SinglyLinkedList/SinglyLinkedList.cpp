@@ -4,6 +4,7 @@
 #include "stdafx.h"
 
 class Node {
+	// friend class SinglyLinkedList;
 	private:
 		int data;
 		Node *next;
@@ -16,7 +17,7 @@ class Node {
 
 class SinglyLinkedList {
 	private:
-		int size;
+		int size = 0;
 		Node *initial;
 	public:
 		SinglyLinkedList() : size(0), initial(NULL){}
@@ -31,25 +32,30 @@ class SinglyLinkedList {
 Node * SinglyLinkedList::get_initial(){ return initial; }
 
 int SinglyLinkedList::get(int index){
-	if (index == 0){ return (sll.get_initial()->get_data()); }
+	int ret;
+	if (index == 0){ ret = (sll.get_initial()->get_data()); }
 	else {
 		Node * curr = sll.get_initial();
 		for (int i = 0; i <= index; i++){
-			if (i == index) { return curr->get_data(); }
+			if (i == index) { ret = curr->get_data(); }
 			else { Node * curr = sll.get_initial()->get_next();}
 		}
 	}
+	return ret;
 }
 
 void SinglyLinkedList::add(int data){
 	Node n(data);
 	Node *pn = &n;
-	if (sll.sz() == 0){ sll.set_initial(pn); }
+	if (sll.sz() == 0){ std::cout << "print";  sll.set_initial(pn); sll.size++; std::cout << "2nd print" << sll.sz() << std::endl; }
 	else {
 		Node * curr = sll.get_initial();
-		while (curr != NULL){ Node * curr = sll.get_initial()->get_next(); }
-		curr = &n;
+		while (curr->get_next() != NULL){
+			curr = curr->get_next();
+		}
+		curr->set_next(pn);
 		sll.size++;
+		std::cout << sll.get_initial()->get_data() << " is the data" <<std::endl;
 	}
 }
 
@@ -77,6 +83,8 @@ int SinglyLinkedList::sz(){ return sll.size; }
 
 int main(){
 	sll.add(1);
+	int v = sll.get_initial()->get_data();
+	std::cout << "v is: " << v << std::endl;
 	sll.add(5);
 	sll.add(10);
 	sll.add(7);
