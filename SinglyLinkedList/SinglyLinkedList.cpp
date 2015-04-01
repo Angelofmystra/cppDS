@@ -88,6 +88,6 @@ int main(){
 	sll.add(7);
 	sll.add(44);
 	std::cout << sll.sz() << " is the size." << std::endl;
-	for (int i = 0; i <= sll.sz(); i++){ std::cout << sll.get(i) << ","; }
+	for (int i = 0; i <= sll.sz()-1; i++){ std::cout << sll.get(i) << ","; }
 	return 0;
 }
