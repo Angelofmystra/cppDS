@@ -38,16 +38,15 @@ int SinglyLinkedList::get(int index){
 		Node * curr = sll.get_initial();
 		for (int i = 0; i <= index; i++){
 			if (i == index) { ret = curr->get_data(); }
-			else { Node * curr = sll.get_initial()->get_next();}
+			else { curr = curr->get_next();}
 		}
 	}
 	return ret;
 }
 
 void SinglyLinkedList::add(int data){
-	Node n(data);
-	Node *pn = &n;
-	if (sll.sz() == 0){ std::cout << "print";  sll.set_initial(pn); sll.size++; std::cout << "2nd print" << sll.sz() << std::endl; }
+	Node *pn = new Node(data);
+	if (sll.sz() == 0){ sll.set_initial(pn);  std::cout << sll.get_initial()->get_data() << " is the data" << std::endl; sll.size++; }
 	else {
 		Node * curr = sll.get_initial();
 		while (curr->get_next() != NULL){
@@ -55,20 +54,21 @@ void SinglyLinkedList::add(int data){
 		}
 		curr->set_next(pn);
 		sll.size++;
-		std::cout << sll.get_initial()->get_data() << " is the data" <<std::endl;
+		std::cout << pn->get_data() << " is the data" <<std::endl;
 	}
 }
 
 void SinglyLinkedList::remove(int index){
 	Node * curr = sll.get_initial();
 	Node * last;
-	if (index == 0 && sll.get_initial()->get_next() == NULL) { curr->set_next(NULL); }
+	if (index == 0 && sll.get_initial()->get_next() == NULL) { delete sll.get_initial(); }
 	else if (index == 0 && sll.get_initial()->get_next() != NULL) {
 		sll.set_initial(sll.get_initial()->get_next());
+		delete curr;
 	}
 	for (int i = 1; i <= index; i++){
 		if (i == index) {
-			if (curr->get_next() == NULL){ curr = NULL; }
+			if (curr->get_next() == NULL){ delete curr; }
 			else{
 				curr = curr->get_next();
 			}
@@ -82,12 +82,12 @@ void SinglyLinkedList::remove(int index){
 int SinglyLinkedList::sz(){ return sll.size; }
 
 int main(){
-	sll.add(1);
-	int v = sll.get_initial()->get_data();
-	std::cout << "v is: " << v << std::endl;
+	sll.add(3);
 	sll.add(5);
 	sll.add(10);
 	sll.add(7);
+	sll.add(44);
+	std::cout << sll.sz() << " is the size." << std::endl;
 	for (int i = 0; i <= sll.sz(); i++){ std::cout << sll.get(i) << ","; }
 	return 0;
 }
