@@ -4,7 +4,6 @@
 #include "stdafx.h"
 
 class Node {
-	// friend class SinglyLinkedList;
 	private:
 		int data;
 		Node *next;
